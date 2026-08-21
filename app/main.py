@@ -5,6 +5,7 @@ from typing import Annotated
 
 from dotenv import load_dotenv
 from fastapi import Body, FastAPI, HTTPException, status
+from fastapi.middleware.cors import CORSMiddleware
 from groq import Groq
 
 from app.models import WorkoutPlanRequest, WorkoutPlanResponse
@@ -14,11 +15,25 @@ from app.workout_service import WorkoutGenerationError, WorkoutService
 load_dotenv()
 
 DEFAULT_GROQ_MODEL = "llama-3.3-70b-versatile"
+DEFAULT_FRONTEND_ORIGINS = "http://localhost:5173,http://127.0.0.1:5173"
+
+frontend_origins = [
+    origin.strip()
+    for origin in os.getenv("FRONTEND_ORIGINS", DEFAULT_FRONTEND_ORIGINS).split(",")
+    if origin.strip()
+]
 
 app = FastAPI(
     title="FitGrok API",
     description="Generate personalized workout plans with Groq.",
     version="1.0.0",
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=frontend_origins,
+    allow_methods=["GET", "POST"],
+    allow_headers=["Accept", "Content-Type"],
 )
 
 

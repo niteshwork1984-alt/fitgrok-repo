@@ -1,7 +1,7 @@
 # FitGrok
 
 FitGrok is a small FastAPI backend that generates personalized workout plans
-through the Groq API.
+through the Groq API, with a single-page React frontend.
 
 ## Backend setup
 
@@ -27,6 +27,20 @@ uvicorn app.main:app --reload
 
 The interactive API documentation is available at
 `http://127.0.0.1:8000/docs`.
+
+## Frontend setup
+
+In a second terminal, install and start the React application:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open `http://localhost:5173` in a browser. The frontend calls the backend at
+`http://127.0.0.1:8000` by default. To use a different backend URL, copy
+`frontend/.env.example` to `frontend/.env` and update `VITE_API_URL`.
 
 ## Generate a workout plan
 
@@ -54,4 +68,7 @@ Successful response:
 
 ```bash
 pytest -q
+cd frontend
+npm test
+npm run build
 ```
