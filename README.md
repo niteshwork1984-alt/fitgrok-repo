@@ -1,11 +1,12 @@
 # FitGrok
 
-FitGrok is a small FastAPI backend that generates personalized workout plans
-through the Groq API, with a single-page React frontend.
+FitGrok is a single-page Streamlit application that generates personalized
+workout plans through the Groq API. It uses structured inputs, typed Python
+functions, prompt design, and friendly error handling.
 
-## Backend setup
+## Required assignment app: Streamlit
 
-Create a virtual environment and install the dependencies:
+Create a virtual environment and install the Python dependencies:
 
 ```bash
 python3 -m venv .venv
@@ -19,7 +20,32 @@ Copy `.env.example` to `.env`, then replace the placeholder API key:
 cp .env.example .env
 ```
 
-Start the backend:
+Start the Streamlit application:
+
+```bash
+streamlit run streamlit_app.py
+```
+
+Open `http://localhost:8501` in a browser.
+
+The Streamlit page collects:
+
+- Fitness goal
+- Experience level
+- Days available per week
+- Equipment access
+- Optional injuries or limitations
+
+It displays the generated plan as Markdown and provides a Markdown download
+button. The most recently generated plan remains available across Streamlit
+reruns through session state.
+
+## Optional FastAPI and React extension
+
+The repository also contains an optional REST API and React interface. They are
+not required to run the Streamlit assignment.
+
+Start the FastAPI backend:
 
 ```bash
 uvicorn app.main:app --reload
@@ -30,7 +56,7 @@ The interactive API documentation is available at
 
 ## Frontend setup
 
-In a second terminal, install and start the React application:
+In a second terminal, install and start the optional React application:
 
 ```bash
 cd frontend
@@ -68,6 +94,11 @@ Successful response:
 
 ```bash
 pytest -q
+```
+
+Optional React checks:
+
+```bash
 cd frontend
 npm test
 npm run build
