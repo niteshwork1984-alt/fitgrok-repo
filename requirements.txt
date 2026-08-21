@@ -1,0 +1,6 @@
+fastapi>=0.115,<1
+groq>=0.31
+pydantic>=2,<3
+pytest>=8,<10
+python-dotenv>=1,<2
+uvicorn>=0.34,<1
